@@ -1,0 +1,66 @@
+<!doctype html>
+<html ng-app>
+    <head>
+        <meta charset="UTF-8">
+        <title>calculator</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.27/angular.js"></script>
+        <script type="text/javascript">
+            function mainCtrl($scope){
+                $scope.result = "";
+                $scope.inputText = "";
+                
+                $scope.btnClick = function(val){
+                    if(val == 'C')
+                    {
+                        $scope.inputText = "";
+                    }
+                    else if(val == '<')
+                    {
+                        if($scope.inputText.length > 0)
+                            $scope.inputText = $scope.inputText.substr(0,$scope.inputText.length-1);
+                    }
+                    else
+                    {
+                        $scope.inputText += val;
+                    }
+                };
+                
+                $scope.result = function(){
+                    $scope.inputText = eval($scope.inputText);
+                };
+            }
+        </script>
+    </head>
+    <body>
+        <div ng-controller="mainCtrl">
+            <input type="text" ng-model="inputText"> 
+            <div>
+                <input type="button" value="7" ng-click="btnClick('7')">
+                <input type="button" value="8" ng-click="btnClick('8')">
+                <input type="button" value="9" ng-click="btnClick('9')">
+                <input type="button" value="+" ng-click="btnClick('+')">
+                <input type="button" value="C" ng-click="btnClick('C')">                
+            </div>
+            <div>
+                <input type="button" value="4" ng-click="btnClick('4')">
+                <input type="button" value="5" ng-click="btnClick('5')">
+                <input type="button" value="6" ng-click="btnClick('6')">
+                <input type="button" value="-" ng-click="btnClick('-')">
+                <input type="button" value="<-" ng-click="btnClick('<')">                
+            </div>
+            <div>
+                <input type="button" value="1" ng-click="btnClick('1')">
+                <input type="button" value="2" ng-click="btnClick('2')">
+                <input type="button" value="3" ng-click="btnClick('3')">
+                <input type="button" value="x" ng-click="btnClick('*')">
+            </div>
+            <div>
+                <input type="button" value="0" ng-click="btnClick('0')">
+                <input type="button" value="(" ng-click="btnClick('(')">
+                <input type="button" value=")" ng-click="btnClick(')')">
+                <input type="button" value="/" ng-click="btnClick('/')">
+                <input type="button" value="=" ng-click="result()">
+            </div>
+        </div>
+    </body>
+</html>
