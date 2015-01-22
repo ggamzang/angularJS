@@ -1,38 +1,55 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="cal">
     <head>
         <meta charset="UTF-8">
         <title>calculator</title>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.27/angular.js"></script>
         <script type="text/javascript">
-            function mainCtrl($scope){
-                $scope.result = "";
-                $scope.inputText = "";
-                
-                $scope.btnClick = function(val){
-                    if(val == 'C')
-                    {
-                        $scope.inputText = "";
-                    }
-                    else if(val == '<')
-                    {
-                        if($scope.inputText.length > 0)
-                            $scope.inputText = $scope.inputText.substr(0,$scope.inputText.length-1);
-                    }
-                    else
-                    {
-                        $scope.inputText += val;
-                    }
+            function Calculator(){
+                this.resultList = [];
+
+                this.addResult = function(result){
+                    this.resultList.push(result);
                 };
-                
-                $scope.result = function(){
-                    $scope.inputText = eval($scope.inputText);
+
+                this.getResult = function(){
+                    return resultList;
                 };
             }
+
+            angular.module("cal", []).
+                    service('calService', Calculator).
+                    controller('mainCtrl', function($scope, calService){
+                        $scope.resultList = calService.resultList;
+                        $scope.inputText = "";
+
+                        $scope.btnClick = function(val){
+                            if(val == 'C')
+                            {
+                                $scope.inputText = "";
+                            }
+                            else if(val == '<')
+                            {
+                                if($scope.inputText.length > 0)
+                                    $scope.inputText = $scope.inputText.substr(0,$scope.inputText.length-1);
+                            }
+                            else
+                            {
+                                $scope.inputText += val;
+                            }
+                        };
+
+                        $scope.result = function(){
+                            var result = $scope.inputText;
+                            $scope.inputText = new String(eval($scope.inputText));
+                            result += (' = ' + $scope.inputText);
+                            calService.addResult(result);
+                        };
+                    });
         </script>
     </head>
-    <body>
-        <div ng-controller="mainCtrl">
+    <body ng-controller="mainCtrl">
+        <div>
             <input type="text" ng-model="inputText"> 
             <div>
                 <input type="button" value="7" ng-click="btnClick('7')">
@@ -61,6 +78,9 @@
                 <input type="button" value="/" ng-click="btnClick('/')">
                 <input type="button" value="=" ng-click="result()">
             </div>
+        </div>
+        <div>
+            <ul><li ng-repeat="result in resultList">{{result}}</li></ul>
         </div>
     </body>
 </html>
