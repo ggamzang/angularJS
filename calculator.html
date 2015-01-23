@@ -45,6 +45,10 @@
                             result += (' = ' + $scope.inputText);
                             calService.addResult(result);
                         };
+
+                        $scope.showResult = function(showResult){
+                            $scope.inputText = showResult;
+                        };
                     });
         </script>
     </head>
@@ -80,7 +84,7 @@
             </div>
         </div>
         <div>
-            <ul><li ng-repeat="result in resultList">{{result}}</li></ul>
+            <ul><li ng-repeat="result in resultList" ng-click="showResult(result)">{{result}}</li></ul>
         </div>
     </body>
 </html>
