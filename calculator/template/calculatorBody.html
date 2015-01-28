@@ -1,0 +1,27 @@
+<div id="calculator">
+    <!-- Screen and clear key -->
+    <div class="top">
+        <span class="clear" data-value="C" ng-click="clear()">C</span>
+        <div class="input">{{inputExpr}}</div>
+        <div class="result"></div>
+    </div>
+
+    <div class="keys">
+        <span ng-click="btnClick($event)">7</span>
+        <span ng-click="btnClick($event)">8</span>
+        <span ng-click="btnClick($event)">9</span>
+        <span class="operator" ng-click="btnClick($event)">/</span>
+        <span ng-click="btnClick($event)">4</span>
+        <span ng-click="btnClick($event)">5</span>
+        <span ng-click="btnClick($event)">6</span>
+        <span class="operator" ng-click="btnClick($event)">*</span>
+        <span ng-click="btnClick($event)">1</span>
+        <span ng-click="btnClick($event)">2</span>
+        <span ng-click="btnClick($event)">3</span>
+        <span class="operator" ng-click="btnClick($event)">-</span>
+        <span ng-click="btnClick($event)">0</span>
+        <span ng-click="btnClick($event)">.</span>
+        <span class="equals" ng-click="result()">=</span>
+        <span class="operator" ng-click="btnClick($event)">+</span>
+    </div>
+</div>
